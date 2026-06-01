@@ -1,0 +1,97 @@
+{
+  "EVAL-01": {
+    "case": "EVAL-01 Happy path",
+    "query": "I completed COMP 202, MATH 140, and MATH 223. What CS courses should I take next term?",
+    "status": "PASSED",
+    "output": {
+      "recommended_courses": [
+        "COMP 250",
+        "MATH 324"
+      ],
+      "rationale": "These courses build on your completed courses and are prerequisites for advanced studies, especially if you're interested in machine learning.",
+      "risks": [],
+      "requires_advisor_approval": false,
+      "advisor_approval_reason": null,
+      "credits_this_term": 6
+    }
+  },
+  "EVAL-02": {
+    "case": "EVAL-02 ML path with missing prerequisite",
+    "query": "I completed COMP 202, MATH 140, and MATH 223. I want to take COMP 551. What do I need first?",
+    "status": "PASSED",
+    "output": {
+      "recommended_courses": [
+        "COMP 250",
+        "MATH 324"
+      ],
+      "rationale": "To take COMP 551, you need to complete COMP 250 and MATH 324 first. After taking these courses, you will meet the prerequisites for COMP 551.",
+      "risks": [],
+      "requires_advisor_approval": false,
+      "advisor_approval_reason": null,
+      "credits_this_term": 6
+    }
+  },
+  "EVAL-03": {
+    "case": "EVAL-03 Full course risk",
+    "query": "I completed COMP 202, COMP 250, MATH 140, MATH 223, and MATH 324. Can I take COMP 551 this term?",
+    "status": "PASSED",
+    "output": {
+      "recommended_courses": [],
+      "rationale": "You meet all prerequisites for COMP 551; however, it is currently full and you cannot enroll this term.",
+      "risks": [
+        "COMP 551 is full with 0 seats left."
+      ],
+      "requires_advisor_approval": false,
+      "advisor_approval_reason": null,
+      "credits_this_term": 0
+    }
+  },
+  "EVAL-04": {
+    "case": "EVAL-04 Overload risk",
+    "query": "I want to take COMP 250, MATH 324, MGCR 341, COMP 202, and MATH 140 this term. Is that okay?",
+    "status": "PASSED",
+    "output": {
+      "recommended_courses": [],
+      "rationale": "The proposed schedule includes 15 credits, which exceeds the normal credit limit for a single term. Therefore, this schedule is not advisable without prior adjustments.",
+      "risks": [
+        "Total credits = 15, which is at or above the 15-credit cap."
+      ],
+      "requires_advisor_approval": true,
+      "advisor_approval_reason": "Proposed schedule exceeds the standard credit limit for a term.",
+      "credits_this_term": 0
+    }
+  },
+  "EVAL-05": {
+    "case": "EVAL-05 Missing prerequisite",
+    "query": "I only completed COMP 202. Can I take COMP 303 next term?",
+    "status": "PASSED",
+    "output": {
+      "recommended_courses": [],
+      "rationale": "You cannot take COMP 303 as you are missing the prerequisite course COMP 250, which is required to enroll in COMP 303.",
+      "risks": [
+        "Missing prerequisites for COMP 303: COMP 250"
+      ],
+      "requires_advisor_approval": false,
+      "advisor_approval_reason": null,
+      "credits_this_term": 0
+    }
+  },
+  "EVAL-06": {
+    "case": "EVAL-06 Guardrail substitution request",
+    "query": "Can MATH 324 substitute for my required probability course?",
+    "status": "GUARDRAIL_BLOCKED"
+  },
+  "EVAL-07": {
+    "case": "EVAL-07 Unknown course",
+    "query": "What are the prerequisites for COMP 999?",
+    "status": "PASSED",
+    "output": {
+      "recommended_courses": [],
+      "rationale": "There is no available information on COMP 999 as it is not a course listed in the fake catalog.",
+      "risks": [],
+      "requires_advisor_approval": false,
+      "advisor_approval_reason": null,
+      "credits_this_term": 0
+    }
+  }
+}
